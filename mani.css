@@ -4,6 +4,12 @@
 }
 
 @font-face {
+    font-family: 'Noto Sans Light';
+    src: url('NotoSans-Light.ttf');
+}
+
+
+@font-face {
     font-family: 'DW TheAntiquaB';
     src: url('DWTheAntiquaB-W6SemiBold.otf');
 }
@@ -17,6 +23,10 @@ body {
     -webkit-hyphens: auto;
     -ms-hyphens: auto;
     hyphens: auto;
+}
+
+path {
+    opacity: 0;
 }
 
 .container {
@@ -33,34 +43,21 @@ p.intro-text {
 
 .button {
     fill: #CBD2D8;
+
     font-family: Noto Sans;
 }
-
-
 .button:hover {
     fill: #00A5FF;
 }
 
 
 .buttonText{
-    font-family: Noto Sans;
+    font-family: Noto Sans Light;
     font-size: 13px;
-    color: #1D1D1B;
-}
-
-
-.link {
-    opacity: 1;
-    fill: none;
 }
 
 .panel {
-    margin: 0;
-    opacity: 1;
-    padding-left: 0px;
-    padding-right: 10px;
     padding-top: 25px;
-
 }
 
 .infoHeading {
@@ -81,17 +78,11 @@ p.intro-text {
     font-size: 15px;
 }
 
-
 img.chart {
     display: inline-block;
     float: left;
     margin-right: 25px;
     margin-bottom: 45px;
-}
-
-
-path {
-    opacity: 0;
 }
 
 .charts{

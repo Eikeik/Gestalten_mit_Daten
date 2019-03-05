@@ -1,21 +1,13 @@
 <html>
 
 <head>
-    <title>Visual Vocabulary der Deutsche Welle</title>
+    <title>Gestalten mit Daten</title>
     <link rel="stylesheet" type="text/css" href="./mani.css">
     <script src="https://d3js.org/d3.v3.min.js" charset="utf-8"></script>
-    <script src="//d3js.org/d3.v3.min.js" charset="utf-8"></script>
     <script src="v2-data.js"></script>
-    <meta http-equiv="content-type" content="text/html; charset=utf-8">
-    <script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
-    <script>
-    WebFont.load({
-        custom: {
-            families: ['Noto Sans']
-        }
-    });
+        <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <link href="http://fonts.googleapis.com/css?family=Noto+Sans" rel="stylesheet" type="text/css">
 
-    </script>
 </head>
 
 <body>
@@ -31,8 +23,6 @@
 
         var xAxis = d3.svg.axis()
             .scale(x)
-          
-            
 
         var container = d3.select("body")
             .append("div")
@@ -47,7 +37,7 @@
             .attr("width", plotWidth)
             .attr("height", 55)
             .append("g")
-           
+
 
         let category = menus.selectAll(".categ")
             .data(plotCategories)
@@ -59,7 +49,6 @@
             .on("mousedown", addLink)
 
 
-
         category.append("rect")
             .attr("class", "button")
             .attr("x", function(d, i) { return cellWidth * i })
@@ -67,21 +56,17 @@
             .attr("height", 50)
             .attr("width", cellWidth - 5)
 
-        x.domain(chartData.map(function(d) { return d.category; })); 
+        x.domain(chartData.map(function(d) { return d.category; }));
         category.append("svg")
             .attr("class", "buttonText")
             .attr("transform", "translate(0,4)")
             .call(xAxis)
-            // .style("fill", "#1C3155")
-            .selectAll(".tick text")
+             .selectAll(".tick text")
             .call(wrap)
-            .attr("class", "buttonText")
-            .on("click", function() { d3.event.stopPropagation(); })
             .style("pointer-events", "none")
+            .on("click", function(d) {
+                d3.event.stopPropagation(); })
             
-
-
-
 
         function wrap(text) {
             text.each(function() {
@@ -90,15 +75,14 @@
                     word,
                     line = [],
                     lineNumber = 0,
-                    lineHeight = 1.2, // ems
+                    lineHeight = 1.2, 
                     y = text.attr("y"),
                     dy = parseFloat(text.attr("dy")),
                     tspan = text.text(null).append("tspan").attr("x", 0).attr("y", y).attr("dy", dy + "em");
-
                 while (word = words.pop()) {
                     line.push(word);
                     tspan.text(line.join(" "));
-                    if (tspan.node().getComputedTextLength() > cellWidth-5) {
+                    if (tspan.node().getComputedTextLength() > cellWidth - 10) {
                         line.pop();
                         tspan.text(line.join(" "));
                         line = [word];
@@ -108,11 +92,6 @@
 
             });
         }
-
-
-
-
-
 
 
         function addCharts(lookUp) {
@@ -131,9 +110,12 @@
             let div = chart.append("div")
                 .attr("class", "chart")
                 .style("max-width", "50%")
-                 .on("mouseover", pointer)
-                .on("click", function (d) {
-                    location.href = d.link;
+                .on("mouseover", pointer)
+                 .on('click', function(d) {
+                    console.log('open tab')
+                     window.open(
+                         d.link,
+                        '_blank');
                 });
 
             div.append("div")
@@ -141,11 +123,10 @@
                 .style("height", 42)
                 .style("width", 440)
                 .html(function(d) { return d.chartName })
-                 
+
 
             div.append("img")
                 .attr("class", "chart")
-                .style("background-color", "#ffffff")
                 .attr("src", function(d) { return "icons/" + d.img })
                 .attr("width", 150)
                 .attr("height", 150)
@@ -154,13 +135,11 @@
                 .attr("class", "chartDesc")
                 .text(function(d) { return d.description })
 
-        } 
+        }
 
         function addInfo(el) {
             let loookUp = el.category
-            let headline2 = loookUp.replace(/[\s-]+/g, '');
             let headline = loookUp.replace(/([-]|\.)\s/g, '');
-
             let infoPanel = container.append("div")
                 .attr("class", "panel")
                 .attr("id", "infoPanel")
@@ -178,7 +157,6 @@
                 .attr("class", "infoText")
                 .html(el.example)
             infoPanel.append("div")
-                .attr("xlink:href", "http://en.wikipedia.org/")
                 .attr("id", "charts")
                 .attr("class", "charts")
 
@@ -187,6 +165,8 @@
 
 
         function addLink(d) {
+            // this.parentNode.appendChild(this);
+
             d3.selectAll(".link")
                 .remove()
             d3.selectAll(".panel")
@@ -194,7 +174,6 @@
 
             d3.selectAll(".buttonText")
                 .style("fill", "#1C3155")
-                // .style("font-weight", "semi-bold")
 
             d3.selectAll(".button")
                 .style("fill", "#CBD2D8")
@@ -213,15 +192,11 @@
                 { "x": 10, "y": 100 }
             ];
 
-            d3.select(this).selectAll(".buttonText")
-                 .style("fill", "white")
-                  console.log(d3.select(this))
-                  // this.id
-
+            d3.select(this.parentNode)
+                .style("fill", "white")
 
             d3.select(this).selectAll(".button")
                 .style("fill", "#00A5FF")
-
 
             d3.selectAll(".link")
                 .data(d)
@@ -234,13 +209,10 @@
                 .attr("d", lineFunction(lineData2))
                 .each("end", next)
 
-
             function next() {
                 addInfo(d)
             }
-
-        } //ende AddLink
-
+        } 
 
 
         let lineFunction = d3.svg.line()
@@ -248,27 +220,9 @@
             .y(function(d) { return d.y; })
             .interpolate("linear");
 
-        function redraw() {
-            plotWidth = container.node().getBoundingClientRect().width;
-            cellWidth = plotWidth / plotCategories.length
-            menus.attr("width", plotWidth)
-            d3.selectAll(".button")
-                .attr("x", function(d, i) { return cellWidth * i })
-                .attr("width", cellWidth)
-            d3.selectAll(".buttonText")
-                .attr("x", function(d, i) { return (cellWidth * i) + (cellWidth / 2) })
-                .attr("width", cellWidth)
-        }
-
         function pointer() {
-            this.style.cursor = 'pointer'
-
-        }
-
-        window.onresize = redraw;
-    }) //end data load
-
+            this.style.cursor = 'pointer' }
+    })
     </script>
-</body>
-
+    </body>
 </html>
