@@ -1,0 +1,118 @@
+@font-face {
+    font-family: 'Noto Sans';
+    src: url('NotoSans.ttf');
+}
+
+@font-face {
+    font-family: 'DW TheAntiquaB';
+    src: url('DWTheAntiquaB-W6SemiBold.otf');
+}
+
+body {
+    font-family: Noto Sans;
+    -webkit-font-smoothing: antialiased;
+    margin: 0 auto;
+    -moz-hyphens: auto;
+    -o-hyphens: auto;
+    -webkit-hyphens: auto;
+    -ms-hyphens: auto;
+    hyphens: auto;
+}
+
+.container {
+    margin: 0 auto;
+    width: 800px;
+}
+
+
+p.intro-text {
+    font-size: 22px;
+    line-height: 28px;
+    color: #1D1D1B;
+}
+
+.button {
+    fill: #CBD2D8;
+    font-family: Noto Sans;
+}
+
+
+.button:hover {
+    fill: #00A5FF;
+}
+
+
+.buttonText{
+    font-family: Noto Sans;
+    font-size: 13px;
+    color: #1D1D1B;
+}
+
+
+.link {
+    opacity: 1;
+    fill: none;
+}
+
+.panel {
+    margin: 0;
+    opacity: 1;
+    padding-left: 0px;
+    padding-right: 10px;
+    padding-top: 25px;
+
+}
+
+.infoHeading {
+    color: #002D5A;
+    font-size: 37px;
+    font-family: DW TheAntiquaB;
+}
+
+.infoSubhead {
+    color: #002D5A;
+    font-size: 16px;
+    font-weight: 600;
+    margin-top: 12px;
+}
+
+.infoText {
+    color: #1D1D1B;
+    font-size: 15px;
+}
+
+
+img.chart {
+    display: inline-block;
+    float: left;
+    margin-right: 25px;
+    margin-bottom: 45px;
+}
+
+
+path {
+    opacity: 0;
+}
+
+.charts{
+    padding-top:45px;
+}
+
+
+.chart {
+    vertical-align: top;
+    display: inline-block;
+    color: #1C3155;
+    font-size: 19px;
+    font-family: Noto Sans;
+}
+
+.chartDesc {
+    color: #1D1D1B;
+    font-size: 15px;
+    margin-top: 8px;
+    margin-top: 10px;
+    margin: 0 auto;
+    word-wrap: break-word;
+    margin-right: 20px;
+}
