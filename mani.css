@@ -50,6 +50,9 @@ p.intro-text {
     fill: #00A5FF;
 }
 
+.rect:hover {
+    fill: #00A5FF;
+}
 
 .buttonText{
     font-family: Noto Sans Light;

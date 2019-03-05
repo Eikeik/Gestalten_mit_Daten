@@ -112,7 +112,6 @@
                 .style("max-width", "50%")
                 .on("mouseover", pointer)
                  .on('click', function(d) {
-                    console.log('open tab')
                      window.open(
                          d.link,
                         '_blank');
@@ -121,7 +120,7 @@
             div.append("div")
                 .attr("class", "chart")
                 .style("height", 42)
-                .style("width", 440)
+                .style("width", 399)
                 .html(function(d) { return d.chartName })
 
 
