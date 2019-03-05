@@ -55,6 +55,11 @@
             .attr("y", 0)
             .attr("height", 50)
             .attr("width", cellWidth - 5)
+            // .on("click", makeBlue)
+            // .on("mouseover", makeBlue)
+            // .on("mouseout", makeGray)
+
+
 
         x.domain(chartData.map(function(d) { return d.category; }));
         category.append("svg")
@@ -111,7 +116,7 @@
                 .attr("class", "chart")
                 .style("max-width", "50%")
                 .on("mouseover", pointer)
-                 .on('click', function(d) {
+                .on('click', function(d) {
                      window.open(
                          d.link,
                         '_blank');
@@ -121,6 +126,7 @@
                 .attr("class", "chart")
                 .style("height", 42)
                 .style("width", 399)
+                .style("font-weight" , 600)
                 .html(function(d) { return d.chartName })
 
 
@@ -171,11 +177,14 @@
             d3.selectAll(".panel")
                 .remove()
 
-            d3.selectAll(".buttonText")
+             d3.selectAll(".buttonText")
                 .style("fill", "#1C3155")
-
             d3.selectAll(".button")
                 .style("fill", "#CBD2D8")
+                // .on("mouseover", makeBlue)
+                // .on("mouseleave", makeGray)
+
+
 
             let x1 = cellWidth * this.id + (cellWidth / 2)
             let lineData = [
@@ -191,12 +200,10 @@
                 { "x": 10, "y": 100 }
             ];
 
-            d3.select(this.parentNode)
+           d3.select(this.parentNode)
                 .style("fill", "white")
-
             d3.select(this).selectAll(".button")
                 .style("fill", "#00A5FF")
-
             d3.selectAll(".link")
                 .data(d)
                 .enter()
@@ -220,7 +227,17 @@
             .interpolate("linear");
 
         function pointer() {
-            this.style.cursor = 'pointer' }
+            this.style.cursor = 'pointer'
+        }
+
+        function makeBlue(){
+            this.style.fill = '#00A5FF'
+            parentNode.style.fill = '#00A5FF'
+        }
+
+        function makeGray(){
+            this.style.fill = '#CBD2D8'
+        }
     })
     </script>
     </body>

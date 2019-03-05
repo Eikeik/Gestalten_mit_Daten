@@ -43,19 +43,20 @@ p.intro-text {
 
 .button {
     fill: #CBD2D8;
-
     font-family: Noto Sans;
 }
+
 .button:hover {
     fill: #00A5FF;
 }
 
-.rect:hover {
+.categ:hover{
     fill: #00A5FF;
 }
 
-.buttonText{
-    font-family: Noto Sans Light;
+
+.tick{
+    font-family: Noto Sans;
     font-size: 13px;
 }
 
@@ -100,6 +101,7 @@ img.chart {
     font-size: 19px;
     font-family: Noto Sans;
 }
+
 
 .chartDesc {
     color: #1D1D1B;
