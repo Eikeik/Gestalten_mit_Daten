@@ -50,14 +50,10 @@ p.intro-text {
     fill: #00A5FF;
 }
 
-.categ:hover{
-    fill: #00A5FF;
-}
-
-
 .tick{
     font-family: Noto Sans;
     font-size: 13px;
+  /*  fill: white;*/
 }
 
 .panel {
@@ -72,9 +68,9 @@ p.intro-text {
 
 .infoSubhead {
     color: #002D5A;
-    font-size: 16px;
+    font-size: 19px;
     font-weight: 600;
-    margin-top: 12px;
+    margin-top: 50px;
 }
 
 .infoText {
@@ -90,7 +86,7 @@ img.chart {
 }
 
 .charts{
-    padding-top:45px;
+    padding-top:50px;
 }
 
 
