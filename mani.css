@@ -46,14 +46,15 @@ p.intro-text {
     font-family: Noto Sans;
 }
 
-.button:hover {
-    fill: #00A5FF;
-}
 
 .tick{
     font-family: Noto Sans;
     font-size: 13px;
   /*  fill: white;*/
+}
+
+.selected {
+    fill: #00A5FF;
 }
 
 .panel {
