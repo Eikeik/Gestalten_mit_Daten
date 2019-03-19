@@ -5,41 +5,31 @@
     <link rel="stylesheet" type="text/css" href="./mani.css">
     <script src="https://d3js.org/d3.v3.min.js" charset="utf-8"></script>
     <script src="v2-data.js"></script>
-        <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
     <link href="http://fonts.googleapis.com/css?family=Noto+Sans" rel="stylesheet" type="text/css">
-
 </head>
 
 <body>
     <script>
     d3.csv("chartTypes.csv", function(error, chartData) {
 
-
         var x = d3.scale.ordinal()
-            .rangeBands([0, 795], .2, .09);
-
-        var y = d3.scale.ordinal()
-            .range([0, 0]);
-
+            .rangeBands([0, 795], .2, .08);
+        x.domain(chartData.map(function(d) { return d.category; }));
+        
         var xAxis = d3.svg.axis()
             .scale(x)
-
         var container = d3.select("body")
             .append("div")
             .attr("class", 'container');
-
         var plotCategories = catData.categories
         var plotWidth = 800;
         var cellWidth = (plotWidth) / plotCategories.length
-
-
-        let menus = container.append("svg")
+        let svg = container.append("svg")
             .attr("width", plotWidth)
             .attr("height", 55)
             .append("g")
-
-
-        let category = menus.selectAll(".categ")
+        let category = svg.selectAll(".categ")
             .data(plotCategories)
             .enter()
             .append("g")
@@ -48,6 +38,17 @@
             .on("mouseover", pointer)
             .on("mousedown", addLink)
 
+        svg.append("g")
+            .attr("class", "buttonText")
+            .attr("transform", "translate(0,4)")
+            .call(xAxis)
+            .selectAll(".tick text")
+            .call(wrap)
+            .attr("id", function(d, i) { return i })
+            .style("pointer-events", "none")
+            .on("click", function(d) {
+                d3.event.stopPropagation();         
+            })
 
         category.append("rect")
             .attr("class", "button")
@@ -55,23 +56,16 @@
             .attr("y", 0)
             .attr("height", 50)
             .attr("width", cellWidth - 5)
-            // .on("click", makeBlue)
-            // .on("mouseover", makeBlue)
-            // .on("mouseout", makeGray)
-
-
-
-        x.domain(chartData.map(function(d) { return d.category; }));
-        category.append("svg")
-            .attr("class", "buttonText")
-            .attr("transform", "translate(0,4)")
-            .call(xAxis)
-             .selectAll(".tick text")
-            .call(wrap)
-            .style("pointer-events", "none")
-            .on("click", function(d) {
-                d3.event.stopPropagation(); })
-            
+              .on("mouseover", makeBlue)
+           
+            .on("click", function () {
+                     d3.select(".selected").classed("selected", false);
+                     // d3.select.parentNode(".buttonText").classed("selected2", false)
+                    d3.select(this).classed("selected", true);
+                      // d3.select(this.parentNode).classed("selected2", true)
+                       d3.select(this.buttonText).selectAll(".tick text").style("fill","white");  
+                 })
+          
 
         function wrap(text) {
             text.each(function() {
@@ -80,7 +74,7 @@
                     word,
                     line = [],
                     lineNumber = 0,
-                    lineHeight = 1.2, 
+                    lineHeight = 1.2,
                     y = text.attr("y"),
                     dy = parseFloat(text.attr("dy")),
                     tspan = text.text(null).append("tspan").attr("x", 0).attr("y", y).attr("dy", dy + "em");
@@ -94,16 +88,13 @@
                         tspan = text.append("tspan").attr("x", 0).attr("y", y).attr("dy", ++lineNumber * lineHeight + dy + "em").text(word);
                     }
                 }
-
             });
         }
-
 
         function addCharts(lookUp) {
             let chartWidth = ((plotWidth - 60) / 2) - 10
             let chartHolder = d3.select("#charts")
                 .append("div")
-
             let chart = chartHolder.selectAll(".chart")
                 .data(function(d) {
                     let filtered = chartData.filter(function(d) {
@@ -117,29 +108,24 @@
                 .style("max-width", "50%")
                 .on("mouseover", pointer)
                 .on('click', function(d) {
-                     window.open(
-                         d.link,
+                    window.open(
+                        d.link,
                         '_blank');
                 });
-
             div.append("div")
                 .attr("class", "chart")
                 .style("height", 42)
                 .style("width", 399)
-                .style("font-weight" , 600)
+                .style("font-weight", 600)
                 .html(function(d) { return d.chartName })
-
-
             div.append("img")
                 .attr("class", "chart")
                 .attr("src", function(d) { return "icons/" + d.img })
                 .attr("width", 150)
                 .attr("height", 150)
-
             div.append("div")
                 .attr("class", "chartDesc")
                 .text(function(d) { return d.description })
-
         }
 
         function addInfo(el) {
@@ -148,7 +134,6 @@
             let infoPanel = container.append("div")
                 .attr("class", "panel")
                 .attr("id", "infoPanel")
-                .style("background-color", "#fff")
             infoPanel.append("div")
                 .attr("class", "infoHeading")
                 .html(headline)
@@ -164,27 +149,18 @@
             infoPanel.append("div")
                 .attr("id", "charts")
                 .attr("class", "charts")
-
             addCharts(loookUp)
         }
 
-
         function addLink(d) {
-            // this.parentNode.appendChild(this);
-
             d3.selectAll(".link")
                 .remove()
             d3.selectAll(".panel")
                 .remove()
-
-             d3.selectAll(".buttonText")
+            d3.selectAll(".tick text")
                 .style("fill", "#1C3155")
             d3.selectAll(".button")
                 .style("fill", "#CBD2D8")
-                // .on("mouseover", makeBlue)
-                // .on("mouseleave", makeGray)
-
-
 
             let x1 = cellWidth * this.id + (cellWidth / 2)
             let lineData = [
@@ -200,14 +176,17 @@
                 { "x": 10, "y": 100 }
             ];
 
-           d3.select(this.parentNode)
-                .style("fill", "white")
             d3.select(this).selectAll(".button")
                 .style("fill", "#00A5FF")
+
+            d3.select(this).selectAll(".tick text")
+                .style("fill", "#fff")
+                console.log(this)
+
             d3.selectAll(".link")
                 .data(d)
                 .enter()
-            menus.append("path")
+            svg.append("path")
                 .attr("class", "link")
                 .attr("d", lineFunction(lineData))
                 .transition()
@@ -218,9 +197,7 @@
             function next() {
                 addInfo(d)
             }
-        } 
-
-
+        }
         let lineFunction = d3.svg.line()
             .x(function(d) { return d.x; })
             .y(function(d) { return d.y; })
@@ -230,15 +207,15 @@
             this.style.cursor = 'pointer'
         }
 
-        function makeBlue(){
+        function makeBlue() {
             this.style.fill = '#00A5FF'
-            parentNode.style.fill = '#00A5FF'
         }
 
-        function makeGray(){
+        function makeGray() {
             this.style.fill = '#CBD2D8'
         }
     })
     </script>
-    </body>
+</body>
+
 </html>
