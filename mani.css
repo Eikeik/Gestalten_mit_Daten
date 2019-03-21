@@ -46,6 +46,9 @@ p.intro-text {
     font-family: Noto Sans;
 }
 
+.button:hover {
+    fill: #00A5FF;
+}
 
 .tick{
     font-family: Noto Sans;
@@ -57,6 +60,14 @@ p.intro-text {
     fill: #00A5FF;
 }
 
+.selected2 {
+    fill: white;
+}
+
+
+.button.active{
+    fill: #00A5FF;
+}
 .panel {
     padding-top: 25px;
 }

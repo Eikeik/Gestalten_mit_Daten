@@ -16,7 +16,7 @@
         var x = d3.scale.ordinal()
             .rangeBands([0, 795], .2, .08);
         x.domain(chartData.map(function(d) { return d.category; }));
-        
+
         var xAxis = d3.svg.axis()
             .scale(x)
         var container = d3.select("body")
@@ -41,13 +41,13 @@
         svg.append("g")
             .attr("class", "buttonText")
             .attr("transform", "translate(0,4)")
-            .call(xAxis)
+                .call(xAxis)
             .selectAll(".tick text")
-            .call(wrap)
+                .call(wrap)
             .attr("id", function(d, i) { return i })
             .style("pointer-events", "none")
-            .on("click", function(d) {
-                d3.event.stopPropagation();         
+                .on("click", function(d) {
+                d3.event.stopPropagation();
             })
 
         category.append("rect")
@@ -56,16 +56,13 @@
             .attr("y", 0)
             .attr("height", 50)
             .attr("width", cellWidth - 5)
-              .on("mouseover", makeBlue)
-           
-            .on("click", function () {
-                     d3.select(".selected").classed("selected", false);
-                     // d3.select.parentNode(".buttonText").classed("selected2", false)
-                    d3.select(this).classed("selected", true);
-                      // d3.select(this.parentNode).classed("selected2", true)
-                       d3.select(this.buttonText).selectAll(".tick text").style("fill","white");  
-                 })
-          
+            .on("click", function() {
+                d3.select(".selected").classed("selected", false);
+                d3.select(".selected2").classed("selected2", false);
+                d3.select(this).classed("selected", true);
+                d3.select(this.parentNode).selectAll(".buttonText").classed("selected2", true);
+            })
+
 
         function wrap(text) {
             text.each(function() {
@@ -157,10 +154,9 @@
                 .remove()
             d3.selectAll(".panel")
                 .remove()
-            d3.selectAll(".tick text")
+
+            d3.selectAll(".buttonText")
                 .style("fill", "#1C3155")
-            d3.selectAll(".button")
-                .style("fill", "#CBD2D8")
 
             let x1 = cellWidth * this.id + (cellWidth / 2)
             let lineData = [
@@ -176,12 +172,8 @@
                 { "x": 10, "y": 100 }
             ];
 
-            d3.select(this).selectAll(".button")
-                .style("fill", "#00A5FF")
-
-            d3.select(this).selectAll(".tick text")
-                .style("fill", "#fff")
-                console.log(this)
+            // d3.select(this.parentNode).selectAll(".buttonText")
+            //     .style("fill", "white")
 
             d3.selectAll(".link")
                 .data(d)
@@ -190,7 +182,7 @@
                 .attr("class", "link")
                 .attr("d", lineFunction(lineData))
                 .transition()
-                .duration(300)
+                .duration(10)
                 .attr("d", lineFunction(lineData2))
                 .each("end", next)
 
@@ -198,6 +190,7 @@
                 addInfo(d)
             }
         }
+
         let lineFunction = d3.svg.line()
             .x(function(d) { return d.x; })
             .y(function(d) { return d.y; })
@@ -207,13 +200,18 @@
             this.style.cursor = 'pointer'
         }
 
-        function makeBlue() {
-            this.style.fill = '#00A5FF'
-        }
+        // function makeBlue() {
+        //     this.style.fill = '#00A5FF'
+        // }
 
-        function makeGray() {
-            this.style.fill = '#CBD2D8'
-        }
+        // function makeGray() {
+        //     this.style.fill = '#CBD2D8'
+        // }
+
+        // function makeWhite(d) {
+        //     d3.select(this.parentNode).selectAll(".buttonText")
+        //     .style("fill" , "white")
+        // }
     })
     </script>
 </body>
